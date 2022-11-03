@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class MenuUIHandler : MonoBehaviour
 {
+    public AudioMixer audioMixer;
+
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
 
 
     public void SetVolume (float volume)
     {
-        Debug.Log(volume);
+        audioMixer.SetFloat("masterVolume", volume);
     }
 
     public void PlayButton()
