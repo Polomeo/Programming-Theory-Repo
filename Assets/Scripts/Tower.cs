@@ -22,6 +22,8 @@ public class Tower : MonoBehaviour
     {
         Health -= damage;
 
+        Debug.Log(gameObject.name + " has recibed " + damage + " dmg!");
+
         if (Health >= 0)
         {
             Die();
