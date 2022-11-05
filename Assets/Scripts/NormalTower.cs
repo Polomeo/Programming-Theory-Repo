@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// INHERITANCE: NormalTower inhereiths methods and attributes from Tower.
 public class NormalTower : Tower
 {
     [SerializeField] private GameObject bulletPrefab;
@@ -34,11 +35,12 @@ public class NormalTower : Tower
         }
     }
 
+    // POLYMORPHISM: Method overriding
     public override void Shoot()
     {
         // Instantiate the bullet and apply force forward
         GameObject bullet = Instantiate(bulletPrefab, shootSpot.transform.position, bulletPrefab.transform.rotation);
-        bullet.GetComponent<Rigidbody>().AddForce(shootSpot.transform.forward * FireSpeed);
+        bullet.GetComponent<Rigidbody>().AddForce(shootSpot.transform.right * FireSpeed);
 
         // Tell the bullet the information about the shoot
         bullet.GetComponent<Bullet>().Damage = Damage;

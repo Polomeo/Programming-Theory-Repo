@@ -7,12 +7,31 @@ public class Bullet : MonoBehaviour
     public int Damage { get; set; }
     public string DamageType { get; private set; }
 
+    [SerializeField] private float rightBound = 10f;
+
     public void SetDamageType(string type)
     {
         DamageType = type;  
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void FixedUpdate()
+    {
+        // ABSTRACTION
+        DestroyOutOfBounds();
+    }
+
+    private void DestroyOutOfBounds()
+    {
+        if (gameObject.transform.position.x > rightBound)
+        {
+            Destroy(gameObject);
+        }
+
+    }
+      
+
+
+private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
@@ -21,3 +40,4 @@ public class Bullet : MonoBehaviour
         }
     }
 }
+
