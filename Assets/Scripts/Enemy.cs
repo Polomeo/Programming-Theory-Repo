@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        // ABSTRACTION
         if (targetTower != null)
         {
             Attack(targetTower);
@@ -114,7 +115,6 @@ public class Enemy : MonoBehaviour
         }
 
     }
-
 
     protected virtual void Walk()
     {

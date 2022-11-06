@@ -3,19 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
-{ 
-    // Start is called before the first frame update
-    void Start()
+{
+    public GameObject tower;
+    private void OnMouseDown()
     {
-      
+        // Spawn the selected tower
+        Instantiate(tower, transform.position, tower.transform.rotation);
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-
-        
+        // De-activate
     }
 }
