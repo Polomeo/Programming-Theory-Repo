@@ -29,7 +29,11 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (!targetTower)
+        if (targetTower != null)
+        {
+            Attack(targetTower);
+        }
+        else
         {
             Walk();
         }
@@ -47,15 +51,6 @@ public class Enemy : MonoBehaviour
 
         }
         
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        // If exists, apply damage
-        if (targetTower != null)
-        {
-            Attack(targetTower);
-        }
     }
 
     // When stops colliding
