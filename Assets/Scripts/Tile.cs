@@ -5,10 +5,12 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public GameObject tower;
+    public Transform spawnTowerPoint;
+
     private void OnMouseDown()
     {
         // Spawn the selected tower
-        Instantiate(tower, transform.position, tower.transform.rotation);
+        Instantiate(tower, spawnTowerPoint.position, tower.transform.rotation);
 
         // De-activate
     }

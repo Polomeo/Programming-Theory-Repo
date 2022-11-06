@@ -994,10 +994,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3961586590833911158, guid: 82c9209b060e765479041c35d2745a9a, type: 3}
-      propertyPath: tower
-      value: 
-      objectReference: {fileID: 671632682587763393, guid: 8d2ae6e4aa73b1b4b96f52967952ab49, type: 3}
     - target: {fileID: 3961586590833911165, guid: 82c9209b060e765479041c35d2745a9a, type: 3}
       propertyPath: m_Name
       value: Tile
