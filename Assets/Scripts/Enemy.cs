@@ -12,25 +12,24 @@ public class Enemy : MonoBehaviour
     protected float AttackRate;
 
     [SerializeField] private float moveSpeed;
-    private bool isWalking;
     private float timer;
+    private Tower targetTower;
 
     
 
     private void Start()
     {
         // Standard enemy parameters
-        Health = 25;
+        Health = 30;
         Damage = 5;
         AttackRate = 2f;
 
-        isWalking = true;
         timer = 0.0f;
     }
 
     private void Update()
     {
-        if (isWalking)
+        if (!targetTower)
         {
             Walk();
         }
@@ -40,20 +39,33 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Get the Tower component of the colider
-        Tower tower = other.gameObject.GetComponent<Tower>();
-        
-        // If exists, apply damage
-        if (tower != null)
+        targetTower = other.gameObject.GetComponent<Tower>();
+
+        if(targetTower != null)
         {
-            Attack(tower);
+            Debug.Log("Target Tower set to: " + targetTower.gameObject.name);
+
+        }
+        
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        // If exists, apply damage
+        if (targetTower != null)
+        {
+            Attack(targetTower);
         }
     }
 
     // When stops colliding
     private void OnTriggerExit(Collider other)
     {
-        // If the Tower destroys, keeps walking
-        isWalking = true;
+        if (targetTower != null)
+        {
+            targetTower = null;
+        }
+
     }
 
     // POLYMORPHISM: Method overloading
@@ -116,20 +128,19 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Attack (Tower tower)
     {
-        // Stops walking
-        isWalking = false;
-
         // Starts the timer
         timer += Time.deltaTime;
 
         // If the FireRate time has passed
         if (timer > AttackRate)
         {
-            // Shoots and resets the timer
+            // Attacks and resets the timer
             tower.TakeDamage(Damage);
             timer = 0.0f;
+
+            Debug.Log(gameObject.name + " attacked " + targetTower.name + " for " + Damage + " dmg.");
+
         }
-        // Attacks towers
     }
 
     protected virtual void Die()

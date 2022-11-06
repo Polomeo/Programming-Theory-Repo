@@ -15,7 +15,7 @@ public class Tower : MonoBehaviour
 
     public virtual void Shoot() 
     {
-        Debug.Log(gameObject.name + " shot a bullet");
+        return;
     }
 
     public virtual void TakeDamage(int damage) 
@@ -32,7 +32,7 @@ public class Tower : MonoBehaviour
 
     public virtual void Die() 
     {
-        Debug.Log(gameObject.name + " has reached 0 health!");
+        Debug.Log(gameObject.name + " has died!");
         Destroy(gameObject);
     }
 }
