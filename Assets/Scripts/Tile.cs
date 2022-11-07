@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public GameObject tower;
-    public Transform spawnTowerPoint;
-    private GameManager gameManager;
+    [SerializeField] private Transform spawnTowerPoint;
 
+    private GameManager gameManager;
+    private GameObject tower;
+    [SerializeField] private Transform tileParent;
 
     private void Start()
     {
@@ -18,10 +19,14 @@ public class Tile : MonoBehaviour
     {
         Debug.Log("Tile Clicked!");
         // Spawn the selected tower and clean the tower
-        if (gameManager.TowerSelected != null)
+        if (gameManager.currentSelectedTower != null)
         {
-            tower = gameManager.TowerSelected;
-            Instantiate(tower, spawnTowerPoint.position, tower.transform.rotation, spawnTowerPoint);
+            tower = gameManager.currentSelectedTower;
+            Debug.Log("Tower selected: " + tower.name);
+
+            Instantiate(tower, spawnTowerPoint.position, tower.transform.rotation, tileParent);
+            Debug.Log("Tower Instantiated");
+
             gameManager.ClearTower();
         }
 

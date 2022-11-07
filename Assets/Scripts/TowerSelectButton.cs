@@ -16,7 +16,6 @@ public class TowerSelectButton : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-
         button = GetComponent<Button>();
 
         button.onClick.AddListener(SelectTower);
