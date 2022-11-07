@@ -15,6 +15,9 @@ public class Enemy : MonoBehaviour
     private float timer;
     private Tower targetTower;
 
+    [SerializeField] private bool isWalking;
+    [SerializeField] private Rigidbody rb;
+
     
 
     private void Start()
@@ -25,16 +28,19 @@ public class Enemy : MonoBehaviour
         AttackRate = 2f;
 
         timer = 0.0f;
+        isWalking = true;
+        rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // ABSTRACTION
         if (targetTower != null)
         {
+            StopWalking();
             Attack(targetTower);
         }
-        else
+        else if (isWalking)
         {
             Walk();
         }
@@ -48,8 +54,7 @@ public class Enemy : MonoBehaviour
 
         if(targetTower != null)
         {
-            Debug.Log("Target Tower set to: " + targetTower.gameObject.name);
-
+            Debug.Log("Target Tower set to: " + targetTower.gameObject.name);   
         }
         
     }
@@ -57,9 +62,15 @@ public class Enemy : MonoBehaviour
     // When stops colliding
     private void OnTriggerExit(Collider other)
     {
-        if (targetTower != null)
+        Tower isTower = other.GetComponent<Tower>();
+
+        if(isTower != null)
         {
-            targetTower = null;
+            if (targetTower != null)
+            {
+                targetTower = null;
+                isWalking = true;
+            }
         }
 
     }
@@ -118,7 +129,13 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Walk()
     {
-        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+        rb.AddRelativeForce(Vector3.forward * moveSpeed);
+    }
+
+    protected virtual void StopWalking()
+    {
+        rb.velocity = Vector3.zero;
+        isWalking = false;
     }
 
     protected virtual void Attack (Tower tower)
@@ -126,14 +143,26 @@ public class Enemy : MonoBehaviour
         // Starts the timer
         timer += Time.deltaTime;
 
+        // Keeps track of the tower Health
+        int towerHealthLeft = tower.Health - Damage; // counts 1 hit 
+
         // If the FireRate time has passed
         if (timer > AttackRate)
         {
             // Attacks and resets the timer
+            towerHealthLeft -= Damage;
             tower.TakeDamage(Damage);
             timer = 0.0f;
 
-            Debug.Log(gameObject.name + " attacked " + targetTower.name + " for " + Damage + " dmg.");
+            
+
+            Debug.Log(gameObject.name + " attacked " + targetTower.name + ". Tower Health left: " + towerHealthLeft);
+
+            // If the tower reaches 0 health, resume walking
+            if (towerHealthLeft <= 0)
+            {
+                isWalking = true;
+            }
 
         }
     }

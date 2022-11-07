@@ -22,10 +22,8 @@ public class Tile : MonoBehaviour
         if (gameManager.currentSelectedTower != null)
         {
             tower = gameManager.currentSelectedTower;
-            Debug.Log("Tower selected: " + tower.name);
 
             Instantiate(tower, spawnTowerPoint.position, tower.transform.rotation, tileParent);
-            Debug.Log("Tower Instantiated");
 
             gameManager.ClearTower();
         }

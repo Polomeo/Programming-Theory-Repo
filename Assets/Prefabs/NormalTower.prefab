@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 5140099896064540474}
   - component: {fileID: 5140099896064540477}
   - component: {fileID: 5140099896064540476}
-  - component: {fileID: 5140099896064540475}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -115,19 +114,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5140099896064540475
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5140099896064540473}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.8274945, y: 0.7400852, z: 1}
-  m_Center: {x: 0.41374624, y: 0.12995741, z: 0}
 --- !u!1 &5140099896932006714
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,6 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5140099896932006715}
   - component: {fileID: 5140099896932006716}
+  - component: {fileID: 6452042568040170329}
   m_Layer: 0
   m_Name: NormalTower
   m_TagString: Untagged
@@ -177,6 +164,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4537825782053311890, guid: 89552380d29100d47b8b2c3caf2909bb, type: 3}
   shootSpot: {fileID: 5140099895287553163}
+--- !u!65 &6452042568040170329
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5140099896932006714}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.80278975, y: 0.78764284, z: 0.44446337}
+  m_Center: {x: 0.15993646, y: 0.7237982, z: -0.008342385}
 --- !u!1 &5140099897099528631
 GameObject:
   m_ObjectHideFlags: 0
