@@ -11,12 +11,15 @@ public class Enemy : MonoBehaviour
 
     protected float AttackRate;
 
+    [SerializeField] private bool isFrozzen;
+
     [SerializeField] private float moveSpeed;
     private float timer;
     private Tower targetTower;
 
     [SerializeField] private bool isWalking;
     [SerializeField] private Rigidbody rb;
+    private Renderer rend;
 
     
 
@@ -27,9 +30,12 @@ public class Enemy : MonoBehaviour
         Damage = 5;
         AttackRate = 2f;
 
+        isFrozzen = false;
+
         timer = 0.0f;
         isWalking = true;
         rb = GetComponent<Rigidbody>();
+        rend = GetComponent<Renderer>();
     }
 
     private void FixedUpdate()
@@ -109,20 +115,27 @@ public class Enemy : MonoBehaviour
 
     protected virtual void ApplyDamageType(string type)
     {
-        bool isFrozzen = false;
 
         if (type == "Cold" && !isFrozzen)
         {
-            // Frozzen! move slower
+            Debug.Log("Frozzen!");
             isFrozzen = true;
+
+            // Store the color temporarely
+            Color baseColor = rend.material.color;
+
+            // Frozzen! move slower
             moveSpeed /= 2;
 
-            // Set the material blue
+            // Set the color to blue
+            // rend.material.SetColor("_Color", new Color(0, 0, 0.8f, 0.5f));
 
             // Wait 5 seconds and return to normal
-            StartCoroutine(EffectCooldownRoutine(5f));
+            StartCoroutine(EffectCooldownRoutine(2f));
             moveSpeed *= 2;
             isFrozzen = false;
+
+            // rend.material.SetColor("_Color",baseColor);
         }
 
     }
