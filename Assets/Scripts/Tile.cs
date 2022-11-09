@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
@@ -8,26 +9,81 @@ public class Tile : MonoBehaviour
 
     private GameManager gameManager;
     private GameObject tower;
+    private Tower placedTower;
     [SerializeField] private Transform tileParent;
+    private bool isEmpty;
+    private bool isShowing;
+
 
     private void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
+        isShowing = false;
+        isEmpty = true;
+        HideTile();
+    }
+
+    private void Update()
+    {
+        // If there is a selected tower and is not empty, show the tile
+        if (gameManager.currentSelectedTower && isEmpty && !isShowing)
+        {
+            ShowTile();
+            isShowing = true;
+        }
+
+        // If there is not a tower selected and is showing, hide it
+        if(gameManager.currentSelectedTower == null && isShowing)
+        {
+            HideTile();
+            isShowing = false;
+        }
+
     }
 
     private void OnMouseDown()
     {
         Debug.Log("Tile Clicked!");
         // Spawn the selected tower and clean the tower
-        if (gameManager.currentSelectedTower != null)
+        if (gameManager.currentSelectedTower != null && isEmpty)
         {
+            // Assign the tower selected from Game Manager
             tower = gameManager.currentSelectedTower;
 
-            Instantiate(tower, spawnTowerPoint.position, tower.transform.rotation, tileParent);
+            // Sets the local variable to placedTower to the instantiated tower
+            GameObject tempTower = Instantiate(tower, spawnTowerPoint.position, tower.transform.rotation, tileParent);
 
+            placedTower = tempTower.GetComponent<Tower>();
+
+            // Clears the tower in the Game Manager
             gameManager.ClearTower();
+            
+            // Is empty is no longer false, so we hide the tile
+            isEmpty = false;
+            HideTile();
+        }
+        else if (!isEmpty)
+        {
+            Debug.Log("The tile is not empty!");
         }
 
-        // De-activate
+    }
+
+    private void HideTile()
+    {
+        if (isShowing)
+        {
+            gameObject.GetComponent<Renderer>().enabled = false;
+        }
+
+    }
+
+    private void ShowTile()
+    {
+        if (!isShowing)
+        {
+            gameObject.GetComponent<Renderer>().enabled = true;
+        }
     }
 }

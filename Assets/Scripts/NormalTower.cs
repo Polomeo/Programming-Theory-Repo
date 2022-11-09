@@ -5,8 +5,8 @@ using UnityEngine;
 // INHERITANCE: NormalTower inhereiths methods and attributes from Tower.
 public class NormalTower : Tower
 {
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private GameObject shootSpot;
+    [SerializeField] protected GameObject bulletPrefab;
+    [SerializeField] protected GameObject shootSpot;
 
     private float timer = 0.0f;
     private bool canShoot = true;

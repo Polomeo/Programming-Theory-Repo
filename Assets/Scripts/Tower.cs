@@ -8,10 +8,12 @@ public class Tower : MonoBehaviour
     public int Health { get; protected set; }
     public int Damage { get; protected set; }
     public float CooldownTime { get; protected set; }
+    public bool isAlive { get; protected set; }
     
 
     protected float FireRate;
     protected float FireSpeed;
+    protected float destroyWaitTime = 5f;
 
     public virtual void Shoot() 
     {
@@ -33,6 +35,8 @@ public class Tower : MonoBehaviour
     public virtual void Die() 
     {
         Debug.Log(gameObject.name + " has died!");
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        isAlive = false;
+        Destroy(gameObject, destroyWaitTime);
     }
 }
