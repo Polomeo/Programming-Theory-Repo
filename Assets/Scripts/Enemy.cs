@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
 
     protected float AttackRate;
 
+    [SerializeField] private GameObject enemyGoal;
     [SerializeField] private bool isFrozzen;
 
     [SerializeField] private float moveSpeed;
@@ -29,11 +30,13 @@ public class Enemy : MonoBehaviour
         Health = 30;
         Damage = 5;
         AttackRate = 2f;
+        enemyGoal = GameObject.FindWithTag("Goal");
 
         isFrozzen = false;
 
         timer = 0.0f;
         isWalking = true;
+
         rb = GetComponent<Rigidbody>();
         rend = GetComponent<Renderer>();
     }
@@ -142,7 +145,8 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Walk()
     {
-        rb.AddRelativeForce(Vector3.forward * moveSpeed);
+        // rb.AddRelativeForce(Vector3.forward * moveSpeed);
+        rb.AddForce((enemyGoal.transform.position - transform.position).normalized * moveSpeed);
     }
 
     protected virtual void StopWalking()
