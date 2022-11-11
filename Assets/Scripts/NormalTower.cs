@@ -21,11 +21,11 @@ public class NormalTower : Tower
         CooldownTime = 5f;
     }
 
-    // FixedUpdate is used to calculate more accurately the velocity of the bullet RigidBody
+    // FixedUpdate is used to calculate the physics velocity of the bullet's RigidBody
     void FixedUpdate()
     {
 
-        if (canShoot)
+        if (canShoot && GameManager.Instance.IsGameActive)
         {
             // Starts the timer
             timer += Time.fixedDeltaTime;
