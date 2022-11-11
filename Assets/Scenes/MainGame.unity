@@ -1049,7 +1049,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcb9dca81e785244823a7e842e98639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTimer: 2
+  IsGameActive: 0
+  spawnTimer: 4
   spawnPoints:
   - {fileID: 1584203986}
   - {fileID: 170878704}
@@ -1545,7 +1546,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081772538}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

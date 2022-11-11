@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
             StopWalking();
             Attack(targetTower);
         }
-        else if (isWalking)
+        else //if (isWalking)
         {
             Walk();
         }
@@ -58,12 +58,21 @@ public class Enemy : MonoBehaviour
     // When collides with a Tower
     private void OnTriggerEnter(Collider other)
     {
+        // Case: collide with tower
         // Get the Tower component of the colider
         targetTower = other.gameObject.GetComponent<Tower>();
 
         if(targetTower != null)
         {
             Debug.Log("Target Tower set to: " + targetTower.gameObject.name);   
+        }
+
+        // Case: collide with goal
+        if (other.CompareTag("Goal"))
+        {
+            // Game Over
+            GameManager.Instance.GameOver();
+
         }
         
     }
@@ -171,15 +180,7 @@ public class Enemy : MonoBehaviour
             tower.TakeDamage(Damage);
             timer = 0.0f;
 
-            
-
             Debug.Log(gameObject.name + " attacked " + targetTower.name + ". Tower Health left: " + towerHealthLeft);
-
-            // If the tower reaches 0 health, resume walking
-            if (towerHealthLeft <= 0)
-            {
-                isWalking = true;
-            }
 
         }
     }

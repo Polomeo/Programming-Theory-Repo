@@ -1,23 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     public GameObject currentSelectedTower { get; private set; }
+    public bool IsGameActive; 
 
     [SerializeField] private float spawnTimer;
     private float timer = 0f;
     [SerializeField] List<GameObject> spawnPoints;
     [SerializeField] List<GameObject> enemies;
 
-    private void Start()
+    private void Awake()
     {
+        // SINGLETON
+
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    { 
+        IsGameActive = true;
         InvokeRepeating("SpawnRandomEnemy", spawnTimer, spawnTimer);
     }
     private void Update()
     {
-        // SpawnRandomEnemy();
+
     }
 
     public void SelectTower(GameObject tower)
@@ -32,19 +51,36 @@ public class GameManager : MonoBehaviour
         Debug.Log("Tower Selected = NULL");
     }
 
+    // ---- GAME LOOP ----
+
+    public void StartGame()
+    {
+        IsGameActive = true;
+        Debug.Log("Game Started!");
+    }
+    public void GameOver()
+    {
+        IsGameActive = false;
+        Debug.Log("Game Over!");
+    }
+
     // ---- SPAWN SECTION ----
     private void SpawnRandomEnemy()
     {
-        timer += Time.time;
-
-        if(timer > spawnTimer)
+        if (IsGameActive)
         {
-            Vector3 randomSpawnPos = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;
-            GameObject randomEnemy = enemies[Random.Range(0, enemies.Count)];
+            timer += Time.time;
 
-            Instantiate(randomEnemy, randomSpawnPos, randomEnemy.transform.rotation);
+            if(timer > spawnTimer)
+            {
+                Vector3 randomSpawnPos = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;
+                GameObject randomEnemy = enemies[Random.Range(0, enemies.Count)];
 
-            timer = 0f;
+                Instantiate(randomEnemy, randomSpawnPos, randomEnemy.transform.rotation);
+
+                timer = 0f;
+            }
+
         }
         
     }
