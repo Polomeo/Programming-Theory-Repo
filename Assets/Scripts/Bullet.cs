@@ -34,16 +34,18 @@ public class Bullet : MonoBehaviour
 
 private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        Enemy enemy = other.gameObject.GetComponent<Enemy>();
+        
+        if (enemy != null)
         {
             // If a special damage effect was applied
             if(DamageType == "" || DamageType == null)
             {
-                other.GetComponent<Enemy>().ApplyDamage(Damage);
+                enemy.ApplyDamage(Damage);
             }
             else
             {
-                other.GetComponent<Enemy>().ApplyDamage(Damage, DamageType);
+                enemy.ApplyDamage(Damage, DamageType);
             }
             Destroy(gameObject);
         }

@@ -11,16 +11,15 @@ public class Enemy : MonoBehaviour
 
     protected float AttackRate;
 
-    [SerializeField] private GameObject enemyGoal;
-    [SerializeField] private bool isFrozzen;
+    [SerializeField] protected GameObject enemyGoal;
+    [SerializeField] protected bool isFrozzen;
 
-    [SerializeField] private float moveSpeed;
-    private float timer;
-    private Tower targetTower;
+    [SerializeField] protected float moveSpeed;
+    protected float timer;
+    protected Tower targetTower;
 
-    [SerializeField] private bool isWalking;
-    [SerializeField] private Rigidbody rb;
-    private Renderer rend;
+    [SerializeField] protected Rigidbody rb;
+    protected Renderer rend;
 
     
 
@@ -35,7 +34,6 @@ public class Enemy : MonoBehaviour
         isFrozzen = false;
 
         timer = 0.0f;
-        isWalking = true;
 
         rb = GetComponent<Rigidbody>();
         rend = GetComponent<Renderer>();
@@ -49,7 +47,7 @@ public class Enemy : MonoBehaviour
             StopWalking();
             Attack(targetTower);
         }
-        else //if (isWalking)
+        else
         {
             Walk();
         }
@@ -90,7 +88,6 @@ public class Enemy : MonoBehaviour
             if (targetTower != null)
             {
                 targetTower = null;
-                isWalking = true;
             }
         }
 
@@ -105,7 +102,7 @@ public class Enemy : MonoBehaviour
         
         ApplyDamageType(type);
         
-        Debug.Log("Hit by " + damage +  type + " dmg! Health left: " + Health);
+        Debug.Log(gameObject.name + " hit by " + damage +  type + " dmg! Health left: " + Health);
 
         // ABSTRACTION: Die() is a separate function
         if (Health <= 0)
@@ -119,7 +116,7 @@ public class Enemy : MonoBehaviour
     public virtual void ApplyDamage(int damage)
         {
             Health -= damage;
-            Debug.Log("Hit by " + damage + " dmg! Health left: " + Health);
+            Debug.Log(gameObject.name + " hit by " + damage + " dmg! Health left: " + Health);
 
             // ABSTRACTION: Die() is a separate function
             if (Health <= 0)
@@ -164,7 +161,7 @@ public class Enemy : MonoBehaviour
     protected virtual void StopWalking()
     {
         rb.velocity = Vector3.zero;
-        isWalking = false;
+        rb.angularVelocity = Vector3.zero;
     }
 
     protected virtual void Attack (Tower tower)

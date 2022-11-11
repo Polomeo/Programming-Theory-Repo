@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject currentSelectedTower { get; private set; }
-    public bool IsGameActive; 
+    public bool IsGameActive { get; private set; } 
 
     [SerializeField] private float spawnTimer;
     private float timer = 0f;
@@ -60,8 +60,12 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
-        IsGameActive = false;
-        Debug.Log("Game Over!");
+        if (IsGameActive)
+        {
+            IsGameActive = false;
+            Debug.Log("Game Over!");
+
+        }
     }
 
     // ---- SPAWN SECTION ----
