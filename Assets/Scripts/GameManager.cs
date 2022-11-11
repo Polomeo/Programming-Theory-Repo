@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject currentSelectedTower { get; private set; }
-    public bool IsGameActive { get; private set; } 
+    public bool IsGameActive { get; private set; }
+
+    [SerializeField] private GameUIHandler gameUIHandler;
 
     [SerializeField] private float spawnTimer;
     private float timer = 0f;
@@ -27,11 +29,14 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // Sets the game active first so other classes can know
+        IsGameActive = true;
     }
 
     private void Start()
-    { 
-        IsGameActive = true;
+    {
+        GetSpawnPoints();
         InvokeRepeating("SpawnRandomEnemy", spawnTimer, spawnTimer);
     }
     private void Update()
@@ -63,12 +68,27 @@ public class GameManager : MonoBehaviour
         if (IsGameActive)
         {
             IsGameActive = false;
+
+            gameUIHandler.ShowGameOverUI();
+
             Debug.Log("Game Over!");
 
         }
     }
 
     // ---- SPAWN SECTION ----
+
+    private void GetSpawnPoints()
+    {
+        spawnPoints = new List<GameObject>();
+
+        GameObject[] spawnPointsInScene = GameObject.FindGameObjectsWithTag("SpawnPoint");
+
+        foreach(GameObject sp in spawnPointsInScene)
+        {
+            spawnPoints.Add(sp);
+        }
+    }
     private void SpawnRandomEnemy()
     {
         if (IsGameActive)
