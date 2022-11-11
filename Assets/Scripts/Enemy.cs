@@ -73,6 +73,9 @@ public class Enemy : MonoBehaviour
             // Game Over
             GameManager.Instance.GameOver();
 
+            // Destroys the enemy
+            // (Since the collider triggers are in the mesh, we destroy the parent of the gameobject wich is the enemy gameobject itself)
+            Destroy(transform.parent.gameObject);
         }
         
     }
