@@ -35,8 +35,8 @@ public class Tower : MonoBehaviour
     public virtual void Die() 
     {
         Debug.Log(gameObject.name + " has died!");
-        gameObject.SetActive(false);
         isAlive = false;
-        Destroy(gameObject, destroyWaitTime);
+        gameObject.SetActive(false);
+        Destroy(gameObject, destroyWaitTime); // Deactivates, and after 5 secons destroys itself so other scripts can know isAlive = false
     }
 }

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public int PlayerCurrency { get; private set; }
     public GameObject currentSelectedTower { get; private set; }
     public bool IsGameActive { get; private set; }
 
@@ -62,6 +63,17 @@ public class GameManager : MonoBehaviour
     {
         IsGameActive = true;
         Debug.Log("Game Started!");
+    }
+
+    public void AddCurrency(int ammount)
+    {
+        PlayerCurrency += ammount;
+        Debug.Log("Currency total: " + PlayerCurrency);
+    }
+    public void SubstractCurrency(int ammount)
+    {
+        PlayerCurrency -= ammount;
+        Debug.Log("Currency total: " + PlayerCurrency);
     }
     public void GameOver()
     {
