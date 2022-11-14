@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
 
         // Sets the game active first so other classes can know
         IsGameActive = true;
