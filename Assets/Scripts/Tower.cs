@@ -7,6 +7,9 @@ public class Tower : MonoBehaviour
     // Tower Main Class
     public int Health { get; protected set; }
     public int Damage { get; protected set; }
+    public string TowerName { get; protected set; }
+    public int TowerCost { get; protected set; }
+
     public float CooldownTime { get; protected set; }
     public bool isAlive { get; protected set; }
     

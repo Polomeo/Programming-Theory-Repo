@@ -12,6 +12,8 @@ public class SunflowerTower : Tower
 
     private void Start()
     {
+        TowerName = "Sunflower";
+        TowerCost = 50;
         Health = 10;
         FireSpeed = 2f;
         FireRate = Random.Range(minSunSpawnTimer, maxSunSpawnTimer);

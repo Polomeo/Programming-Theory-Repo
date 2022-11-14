@@ -37,7 +37,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // ---- SPAWN SECTION ---- //
         GetSpawnPoints();
+        PlayerCurrency = 25;
         InvokeRepeating("SpawnRandomEnemy", spawnTimer, spawnTimer);
     }
     private void Update()
@@ -68,11 +70,14 @@ public class GameManager : MonoBehaviour
     public void AddCurrency(int ammount)
     {
         PlayerCurrency += ammount;
+        gameUIHandler.UpdateCurrencyText(PlayerCurrency.ToString());
+
         Debug.Log("Currency total: " + PlayerCurrency);
     }
     public void SubstractCurrency(int ammount)
     {
         PlayerCurrency -= ammount;
+        gameUIHandler.UpdateCurrencyText(PlayerCurrency.ToString());
         Debug.Log("Currency total: " + PlayerCurrency);
     }
     public void GameOver()

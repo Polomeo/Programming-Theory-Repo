@@ -10,14 +10,22 @@ public class GameUIHandler : MonoBehaviour
 {
     [SerializeField] private GameObject playUI;
     [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private TextMeshProUGUI currencyText;
 
 
     private void Start()
     {
         // Game Over text starts hidden
         gameOverUI.gameObject.SetActive(false);
+
+        // Starting currency
+        UpdateCurrencyText(GameManager.Instance.PlayerCurrency.ToString());
     }
 
+    public void UpdateCurrencyText(string text)
+    {
+        currencyText.SetText("Suns: " + text);
+    }
     public void ShowGameOverUI()
     {
         playUI.gameObject.SetActive(false);

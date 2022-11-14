@@ -14,6 +14,8 @@ public class NormalTower : Tower
     // When is instantiated, set the variables
     void Start()
     {
+        TowerName = "Pea Shooter";
+        TowerCost = 100;
         Health = 10;
         Damage = 5;
         FireRate = 1.5f;
