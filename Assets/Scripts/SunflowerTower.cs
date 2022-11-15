@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SunflowerTower : Tower
 {
-    private float timer = 0.0f;
-    private float maxSunSpawnTimer = 3f;
-    private float minSunSpawnTimer = 6f;
+    [SerializeField] private float maxSunSpawnTimer = 3f;
+    [SerializeField] private float minSunSpawnTimer = 6f;
     [SerializeField] private GameObject sunPrefab;
     [SerializeField] private Transform shootPoint;
+    private float timer = 0.0f;
 
     private void Start()
     {
@@ -47,8 +47,8 @@ public class SunflowerTower : Tower
         // Sets a new timer
         FireRate = Random.Range(minSunSpawnTimer, maxSunSpawnTimer);
 
-        Debug.Log("Sun emmited!");
-        Debug.Log("Next sun in: " + FireRate + " secs.");
+        // Debug.Log("Sun emmited!");
+        // Debug.Log("Next sun in: " + FireRate + " secs.");
     }
 
 }

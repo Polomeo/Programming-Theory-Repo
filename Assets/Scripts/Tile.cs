@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
@@ -44,7 +45,6 @@ public class Tile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Tile Clicked!");
         // Spawn the selected tower and clean the tower
         if (gameManager.currentSelectedTower != null && isEmpty)
         {
@@ -54,7 +54,9 @@ public class Tile : MonoBehaviour
             // Sets the local variable to placedTower to the instantiated tower
             GameObject tempTower = Instantiate(tower, spawnTowerPoint.position, tower.transform.rotation, tileParent);
 
-            placedTower = tempTower.GetComponent<Tower>();
+            // Substract the cost
+            gameManager.SubstractCurrency(tempTower.GetComponent<Tower>().GetTowerCost());
+            
 
             // Clears the tower in the Game Manager
             gameManager.ClearTower();

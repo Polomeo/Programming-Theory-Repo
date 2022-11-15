@@ -7,14 +7,16 @@ public class NormalTower : Tower
 {
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected GameObject shootSpot;
+      
 
     private float timer = 0.0f;
     private bool canShoot = true;
 
+
     // When is instantiated, set the variables
     void Start()
     {
-        TowerName = "Pea Shooter";
+        TowerName = "Pea Tower";
         TowerCost = 100;
         Health = 10;
         Damage = 5;

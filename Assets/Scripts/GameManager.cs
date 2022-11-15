@@ -37,9 +37,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // ---- START VARIABLES ---- //
+        PlayerCurrency = 25;
+        
         // ---- SPAWN SECTION ---- //
         GetSpawnPoints();
-        PlayerCurrency = 25;
         InvokeRepeating("SpawnRandomEnemy", spawnTimer, spawnTimer);
     }
     private void Update()
@@ -50,13 +52,12 @@ public class GameManager : MonoBehaviour
     public void SelectTower(GameObject tower)
     {
         currentSelectedTower = tower;
-        Debug.Log(currentSelectedTower.name + " has been selected");
+        // Debug.Log(currentSelectedTower.name + " has been selected");
     }
 
     public void ClearTower()
     {
         currentSelectedTower = null;
-        Debug.Log("Tower Selected = NULL");
     }
 
     // ---- GAME LOOP ----
@@ -72,13 +73,13 @@ public class GameManager : MonoBehaviour
         PlayerCurrency += ammount;
         gameUIHandler.UpdateCurrencyText(PlayerCurrency.ToString());
 
-        Debug.Log("Currency total: " + PlayerCurrency);
+        Debug.Log(ammount + " added. TOTAL: " + PlayerCurrency);
     }
     public void SubstractCurrency(int ammount)
     {
         PlayerCurrency -= ammount;
         gameUIHandler.UpdateCurrencyText(PlayerCurrency.ToString());
-        Debug.Log("Currency total: " + PlayerCurrency);
+        Debug.Log(ammount + " substracted. TOTAL: " + PlayerCurrency);
     }
     public void GameOver()
     {

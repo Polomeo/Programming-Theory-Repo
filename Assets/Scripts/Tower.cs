@@ -18,6 +18,16 @@ public class Tower : MonoBehaviour
     protected float FireSpeed;
     protected float destroyWaitTime = 5f;
 
+    public virtual string GetTowerName()
+    {
+        return TowerName;
+    }
+
+    public virtual int GetTowerCost()
+    {
+        return TowerCost;
+    }
+
     public virtual void Shoot() 
     {
         return;

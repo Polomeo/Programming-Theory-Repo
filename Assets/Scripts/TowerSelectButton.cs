@@ -8,19 +8,25 @@ public class TowerSelectButton : MonoBehaviour
 {
     public GameObject Tower;
 
+    private GameManager gameManager;
     private Button button;
     [SerializeField] private TextMeshProUGUI towerSelectButtonText;
-    private GameManager gameManager;
+    [SerializeField] private string towerName;
+    [SerializeField] private string towerCost;
 
     // Start is called before the first frame update
     void Start()
     {
+        // --- DEPENDENCIES --- //
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         button = GetComponent<Button>();
 
-        button.onClick.AddListener(SelectTower);
+        Tower towerData = Tower.GetComponent<Tower>();
+        // Debug.Log(towerData.GetTowerName());
 
-        towerSelectButtonText.SetText(Tower.gameObject.name);
+        // --- FUNCTIONALITY --- //
+        button.onClick.AddListener(SelectTower);
+        towerSelectButtonText.SetText(towerName + "\n" + towerCost);
     }
 
     // Update is called once per frame
@@ -32,6 +38,5 @@ public class TowerSelectButton : MonoBehaviour
     void SelectTower()
     {
         gameManager.SelectTower(Tower);
-        Debug.Log(Tower.gameObject.name + " selected.");
     }
 }

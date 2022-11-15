@@ -6,7 +6,7 @@ public class FrostTower : NormalTower
 {
     private void Start()
     {
-        TowerName = "Frost Shooter";
+        TowerName = "Frost Tower";
         TowerCost = 150;
         Health = 10;
         Damage = 3;
