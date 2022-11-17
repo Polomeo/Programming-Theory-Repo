@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     // Tower Main Class
-    public int Health { get; protected set; }
+    [field: SerializeField] public int Health { get; protected set; }
     public int Damage { get; protected set; }
     public string TowerName { get; protected set; }
     public int TowerCost { get; protected set; }
@@ -39,7 +39,7 @@ public class Tower : MonoBehaviour
 
         Debug.Log(gameObject.name + " has recibed " + damage + " dmg!");
 
-        if (Health >= 0)
+        if (Health <= 0)
         {
             Die();
         }

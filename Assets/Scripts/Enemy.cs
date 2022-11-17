@@ -73,9 +73,12 @@ public class Enemy : MonoBehaviour
 
             // Destroys the enemy
             // (Since the collider triggers are in the mesh, we destroy the parent of the gameobject wich is the enemy gameobject itself)
-            Destroy(transform.parent.gameObject);
+            Destroy(transform.gameObject);
         }
-        
+
+        // Case: collide with other enemy
+
+
     }
 
     // When stops colliding
