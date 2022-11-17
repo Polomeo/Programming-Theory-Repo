@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     protected float AttackRate;
 
     [SerializeField] protected GameObject enemyGoal;
-    [SerializeField] protected bool isFrozzen;
+    [SerializeField] protected bool isWalking;
 
     [SerializeField] protected float moveSpeed;
     protected float timer;
@@ -29,12 +29,14 @@ public class Enemy : MonoBehaviour
         Health = 30;
         Damage = 5;
         AttackRate = 2f;
-        enemyGoal = GameObject.FindWithTag("Goal");
 
-        isFrozzen = false;
+        // Private variables
+        enemyGoal = GameObject.FindWithTag("Goal");
+        isWalking = true;
 
         timer = 0.0f;
 
+        // Components
         rb = GetComponent<Rigidbody>();
         rend = GetComponent<Renderer>();
     }
@@ -44,7 +46,10 @@ public class Enemy : MonoBehaviour
         // ABSTRACTION
         if (targetTower != null)
         {
-            StopWalking();
+            if (isWalking)
+            {
+                StopWalking();
+            }
             Attack(targetTower);
         }
         else
@@ -77,13 +82,17 @@ public class Enemy : MonoBehaviour
         }
 
         // Case: collide with other enemy
-
+        if (other.CompareTag("Enemy"))
+        {
+            StopWalking();
+        }
 
     }
 
     // When stops colliding
     private void OnTriggerExit(Collider other)
     {
+        // If target tower is null, continue walking
         Tower isTower = other.GetComponent<Tower>();
 
         if(isTower != null)
@@ -91,6 +100,7 @@ public class Enemy : MonoBehaviour
             if (targetTower != null)
             {
                 targetTower = null;
+                isWalking = true;
             }
         }
 
@@ -131,11 +141,10 @@ public class Enemy : MonoBehaviour
     protected virtual void ApplyDamageType(string type)
     {
 
-        if (type == "Cold" && !isFrozzen)
+        if (type == "Cold")
         {
             Debug.Log("Frozzen!");
-            isFrozzen = true;
-
+        
             // Store the color temporarely
             Color baseColor = rend.material.color;
 
@@ -148,7 +157,6 @@ public class Enemy : MonoBehaviour
             // Wait 5 seconds and return to normal
             StartCoroutine(EffectCooldownRoutine(2f));
             moveSpeed *= 2;
-            isFrozzen = false;
 
             // rend.material.SetColor("_Color",baseColor);
         }
@@ -165,6 +173,7 @@ public class Enemy : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        isWalking = false;
     }
 
     protected virtual void Attack (Tower tower)
